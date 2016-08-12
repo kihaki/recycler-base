@@ -5,7 +5,7 @@ group='com.github.kihaki'
 
 def major   = 1
 def minor   = 0
-def patch   = 3
+def patch   = 4
 
 android {
     compileSdkVersion 24

@@ -1,8 +1,8 @@
 package de.koandesign.recyclerbase;
 
-public interface RecyclerComparable {
+public interface RecyclerComparable<T> {
 
-    int compareTo(RecyclerComparable other);
-    boolean hasSameContentAs(RecyclerComparable other);
-    boolean isSameItemAs(RecyclerComparable other);
+    int compareTo(T other);
+    boolean hasSameContentAs(T other);
+    boolean isSameItemAs(T other);
 }
