@@ -4,6 +4,8 @@ import android.support.v7.util.SortedList;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Collection;
+
 public abstract class SortedRecyclerViewAdapter<T extends RecyclerComparable<T>, V extends View & BindableView<T>> extends RecyclerViewAdapterBase<T, V> {
 
     private SortedList<T> items;
@@ -26,13 +28,17 @@ public abstract class SortedRecyclerViewAdapter<T extends RecyclerComparable<T>,
         return this.items.get(position);
     }
 
+    public void add(T item) {
+        this.items.add(item);
+    }
+
     @SafeVarargs
     public final void add(T... items) {
         this.items.addAll(items);
     }
 
-    public void add(T item) {
-        this.items.add(item);
+    public void addAll(Collection<T> items) {
+        this.items.addAll(items);
     }
 
     public void remove(T item) {
