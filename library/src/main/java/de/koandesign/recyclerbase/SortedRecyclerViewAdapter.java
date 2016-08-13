@@ -22,7 +22,7 @@ public abstract class SortedRecyclerViewAdapter<T extends RecyclerComparable<T>,
         return items.size();
     }
 
-    protected T getItem(int position){
+    public T getItem(int position){
         return this.items.get(position);
     }
 

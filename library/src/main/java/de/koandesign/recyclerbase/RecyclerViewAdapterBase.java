@@ -21,7 +21,7 @@ public abstract class RecyclerViewAdapterBase<T, V extends View & BindableView<T
     @Override
     public abstract int getItemCount();
 
-    protected abstract V onCreateItemView(ViewGroup parent, int viewType);
+    public abstract T getItem(int position);
 
-    protected abstract T getItem(int position);
+    protected abstract V onCreateItemView(ViewGroup parent, int viewType);
 }
