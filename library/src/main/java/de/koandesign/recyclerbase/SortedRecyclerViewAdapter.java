@@ -53,6 +53,10 @@ public abstract class SortedRecyclerViewAdapter<T extends RecyclerComparable<T>,
         return items;
     }
 
+    public void clear(){
+        this.items.clear();
+    }
+
     public class SortedListCallbackBase extends SortedList.Callback<T> {
 
         @Override
