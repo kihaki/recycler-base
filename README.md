@@ -1,1 +1,1 @@
-Bottom text
+Basic classes to be used as drop ins for setting up recyclerviews
