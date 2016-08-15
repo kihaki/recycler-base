@@ -57,6 +57,10 @@ public abstract class SortedRecyclerViewAdapter<T extends RecyclerComparable<T>,
         this.items.clear();
     }
 
+    public boolean isItemsEmpty() {
+        return items.size() == 0;
+    }
+
     public class SortedListCallbackBase extends SortedList.Callback<T> {
 
         @Override
