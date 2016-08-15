@@ -25,6 +25,14 @@ public abstract class SortedAdapterWithEmptyView<T extends RecyclerComparable<T>
     }
 
     @Override
+    public T getItem(int position) {
+        if (isItemsEmpty()) {
+            return null;
+        }
+        return super.getItem(position);
+    }
+
+    @Override
     public int getItemViewType(int position) {
         if(isItemsEmpty()) {
             return ViewType.EMPTY;
