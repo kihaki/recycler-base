@@ -42,6 +42,6 @@ public abstract class SortedAdapterWithEmptyView<T extends RecyclerComparable<T>
         }
     }
 
-    abstract V onCreateEmptyView(ViewGroup parent, int viewType);
-    abstract V onCreateRegularView(ViewGroup parent, int viewType);
+    protected abstract V onCreateEmptyView(ViewGroup parent, int viewType);
+    protected abstract V onCreateRegularView(ViewGroup parent, int viewType);
 }
