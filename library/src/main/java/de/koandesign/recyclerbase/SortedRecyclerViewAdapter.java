@@ -8,6 +8,8 @@ import java.util.Collection;
 
 public abstract class SortedRecyclerViewAdapter<T extends RecyclerComparable<T>> extends RecyclerViewAdapterBase<T> {
 
+    boolean isEmpty;
+    OnEmptyStateChangeListener listener;
     private SortedList<T> items;
 
     /**
@@ -18,10 +20,29 @@ public abstract class SortedRecyclerViewAdapter<T extends RecyclerComparable<T>>
         items = new SortedList<>(type, new SortedListCallbackBase());
     }
 
+    public void setOnEmptyStateChangeListener(OnEmptyStateChangeListener listener) {
+        this.listener = listener;
+    }
+
+    private void notifyEmptyStateListener(boolean empty) {
+        if (listener == null) {
+            return;
+        }
+        listener.onEmptyStateChanged(empty);
+    }
+
     protected abstract View onCreateItemView(ViewGroup parent, int viewType);
 
     @Override
     public int getItemCount() {
+        if(!isEmpty && items.size() == 0) {
+            notifyEmptyStateListener(true);
+            isEmpty = true;
+        }
+        if(isEmpty && items.size() != 0) {
+            notifyEmptyStateListener(false);
+            isEmpty = false;
+        }
         return items.size();
     }
 
@@ -98,5 +119,9 @@ public abstract class SortedRecyclerViewAdapter<T extends RecyclerComparable<T>>
         public boolean areItemsTheSame(T a, T b) {
             return a.isSameItemAs(b);
         }
+    }
+
+    public interface OnEmptyStateChangeListener {
+        void onEmptyStateChanged(boolean empty);
     }
 }
