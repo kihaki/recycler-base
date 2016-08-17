@@ -8,7 +8,7 @@ import java.util.Collection;
 
 public abstract class SortedRecyclerViewAdapter<T extends RecyclerComparable<T>> extends RecyclerViewAdapterBase<T> {
 
-    boolean isEmpty;
+    boolean isEmpty = true;
     OnEmptyStateChangeListener listener;
     private SortedList<T> items;
 
