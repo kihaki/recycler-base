@@ -3,10 +3,10 @@ package de.koandesign.recyclerbase;
 import android.view.View;
 import android.view.ViewGroup;
 
-public abstract class SortedAdapterWithEmptyView<T extends RecyclerComparable<T>, V extends View & BindableView<T>> extends SortedRecyclerViewAdapter<T, V> {
+public abstract class SortedAdapterWithEmptyView<T extends RecyclerComparable<T>> extends SortedRecyclerViewAdapter<T> {
 
     public static final class ViewType {
-        public static final int EMPTY = 101;
+        public static final int EMPTY = Integer.MIN_VALUE + 1;
     }
 
     /**
@@ -41,15 +41,15 @@ public abstract class SortedAdapterWithEmptyView<T extends RecyclerComparable<T>
     }
 
     @Override
-    protected V onCreateItemView(ViewGroup parent, int viewType) {
+    protected View onCreateItemView(ViewGroup parent, int viewType) {
         switch(viewType) {
             default:
                 return onCreateRegularView(parent, viewType);
             case ViewType.EMPTY:
-                return onCreateEmptyView(parent, viewType);
+                return onCreateEmptyView(parent);
         }
     }
 
-    protected abstract V onCreateEmptyView(ViewGroup parent, int viewType);
-    protected abstract V onCreateRegularView(ViewGroup parent, int viewType);
+    protected abstract View onCreateEmptyView(ViewGroup parent);
+    protected abstract View onCreateRegularView(ViewGroup parent, int viewType);
 }

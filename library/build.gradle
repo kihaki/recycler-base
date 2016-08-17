@@ -4,8 +4,8 @@ apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.kihaki'
 
 def major   = 1
-def minor   = 2
-def patch   = 2
+def minor   = 3
+def patch   = 0
 
 android {
     compileSdkVersion 24

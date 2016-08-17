@@ -3,7 +3,7 @@ package de.koandesign.recyclerbase;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-public class ViewWrapper<T, V extends View & BindableView<T>> extends RecyclerView.ViewHolder {
+public class ViewWrapper<T, V extends View> extends RecyclerView.ViewHolder {
 
     private V view;
 

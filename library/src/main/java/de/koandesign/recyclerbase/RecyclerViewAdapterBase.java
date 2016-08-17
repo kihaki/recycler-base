@@ -4,18 +4,29 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-public abstract class RecyclerViewAdapterBase<T, V extends View & BindableView<T>> extends RecyclerView.Adapter<ViewWrapper<T, V>> {
+public abstract class RecyclerViewAdapterBase<T> extends RecyclerView.Adapter<ViewWrapper<T, View>> {
+
+    protected final Class<T> type;
+
+    public RecyclerViewAdapterBase(Class<T> type) {
+        this.type = type;
+    }
 
     @Override
-    public final ViewWrapper<T, V> onCreateViewHolder(ViewGroup parent, int viewType) {
+    public final ViewWrapper<T, View> onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewWrapper<>(onCreateItemView(parent, viewType));
     }
 
     @Override
-    public void onBindViewHolder(ViewWrapper<T, V> viewHolder, int position) {
-        BindableView<T> view = viewHolder.getView();
+    public void onBindViewHolder(ViewWrapper<T, View> viewHolder, int position) {
+        View view = viewHolder.getView();
         T item = getItem(position);
-        view.bind(item);
+        if(view instanceof BindableView) {
+            BindableView bindableView = (BindableView) view;
+            if(bindableView.getType().equals(type)) {
+                ((BindableView)view).bind(item);
+            }
+        }
     }
 
     @Override
@@ -23,5 +34,5 @@ public abstract class RecyclerViewAdapterBase<T, V extends View & BindableView<T
 
     public abstract T getItem(int position);
 
-    protected abstract V onCreateItemView(ViewGroup parent, int viewType);
+    protected abstract View onCreateItemView(ViewGroup parent, int viewType);
 }

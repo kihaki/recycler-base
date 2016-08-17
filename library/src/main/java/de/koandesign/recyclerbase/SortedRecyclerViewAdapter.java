@@ -6,18 +6,19 @@ import android.view.ViewGroup;
 
 import java.util.Collection;
 
-public abstract class SortedRecyclerViewAdapter<T extends RecyclerComparable<T>, V extends View & BindableView<T>> extends RecyclerViewAdapterBase<T, V> {
+public abstract class SortedRecyclerViewAdapter<T extends RecyclerComparable<T>> extends RecyclerViewAdapterBase<T> {
 
     private SortedList<T> items;
 
     /**
      * Must call this constructor for the Recycler to handle items sorting
      */
-    public SortedRecyclerViewAdapter(Class<T> klass) {
-        items = new SortedList<>(klass, new SortedListCallbackBase());
+    public SortedRecyclerViewAdapter(Class<T> type) {
+        super(type);
+        items = new SortedList<>(type, new SortedListCallbackBase());
     }
 
-    protected abstract V onCreateItemView(ViewGroup parent, int viewType);
+    protected abstract View onCreateItemView(ViewGroup parent, int viewType);
 
     @Override
     public int getItemCount() {
