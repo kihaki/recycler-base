@@ -24,26 +24,31 @@ public abstract class SortedRecyclerViewAdapter<T extends RecyclerComparable<T>>
         this.listener = listener;
     }
 
-    private void notifyEmptyStateListener(boolean empty) {
-        if (listener == null) {
-            return;
+    protected void notifyEmptyStateListener(boolean empty) {
+        if(isEmpty != empty) {
+            isEmpty = empty;
+            if (listener == null) {
+                return;
+            }
+            listener.onEmptyStateChanged(empty);
         }
-        listener.onEmptyStateChanged(empty);
     }
 
     protected abstract View onCreateItemView(ViewGroup parent, int viewType);
 
     @Override
     public int getItemCount() {
-        if(!isEmpty && items.size() == 0) {
-            notifyEmptyStateListener(true);
-            isEmpty = true;
-        }
-        if(isEmpty && items.size() != 0) {
-            notifyEmptyStateListener(false);
-            isEmpty = false;
-        }
         return items.size();
+    }
+
+    private boolean notifyIfEmpty() {
+        if(getItemCount() == 0) {
+            notifyEmptyStateListener(true);
+            return true;
+        } else {
+            notifyEmptyStateListener(false);
+            return false;
+        }
     }
 
     public T getItem(int position){
@@ -93,11 +98,13 @@ public abstract class SortedRecyclerViewAdapter<T extends RecyclerComparable<T>>
         @Override
         public void onInserted(int position, int count) {
             notifyItemRangeInserted(position, count);
+            notifyIfEmpty();
         }
 
         @Override
         public void onRemoved(int position, int count) {
             notifyItemRangeRemoved(position, count);
+            notifyIfEmpty();
         }
 
         @Override
